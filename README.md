@@ -37,6 +37,7 @@ allData <- cbind(allSubjects, allFeatures, allActivities)
 
 explaination goes here...
 
+
 ## Step 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
 
 ```r
@@ -49,7 +50,8 @@ newData <- allData[1:dim(allData), requiredColumns]
 dim(newData)
 ```
 
-### explaination goes here...
+explaination goes here...
+
 
 ## Step 3 - Uses descriptive activity names to name the activities in the data set
 
@@ -64,7 +66,8 @@ for (i in 1:dim(newData)[1]){
 combinedNewData <- cbind(newData, allSubjects)
 ```
 
-### explaination goes here...
+explaination goes here...
+
 
 ## Step 4 - Appropriately labels the data set with descriptive variable names.
 
@@ -90,7 +93,8 @@ names(combinedNewData) <- subsitituteLabel(combinedNewData, "gravity", "Gravity"
 names(combinedNewData)
 ```
 
-### explaination goes here...
+explaination goes here...
+
 
 ## Step 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
@@ -102,4 +106,5 @@ finalData <- combinedNewData %>%
 write.table(finalData, "Final_Data.txt", row.name=FALSE)
 ```
 
-### explaination goes here...
+explaination goes here...
+
