@@ -35,7 +35,7 @@ colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 ```
 
-<code style="color=blue;" >explaination goes here...</code>
+<span style="color=blue;" >explaination goes here...</span>
 
 
 ## Step 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
