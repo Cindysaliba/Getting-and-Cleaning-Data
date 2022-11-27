@@ -135,9 +135,8 @@ write.table(finalData, "Final_Data.txt", row.name=FALSE)
 
 `finalData` is the final data set created from calculating the mean in the `Subject` and `Activity` column.
 
-Finally, 
 ```r 
 write.table(finalData, "Final_Data.txt", row.name=FALSE)
 ``` 
-will write the `finalData` to an output file in the main directory.
+The above code will write the `finalData` to an output file in the main directory.
 
