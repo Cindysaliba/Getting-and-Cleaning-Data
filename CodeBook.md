@@ -34,8 +34,8 @@ colnames(allActivities) <- "Activity"
 colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 ```
-
-<span style="color=blue;" >explaination goes here...</span>
+explaination goes here...
+This is a `variable`
 
 
 ## Step 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -49,7 +49,6 @@ newData <- allData[1:dim(allData), requiredColumns]
 
 dim(newData)
 ```
-
 explaination goes here...
 
 
@@ -65,7 +64,6 @@ for (i in 1:dim(newData)[1]){
 }
 combinedNewData <- cbind(newData, allSubjects)
 ```
-
 explaination goes here...
 
 
@@ -92,7 +90,6 @@ names(combinedNewData) <- subsitituteLabel(combinedNewData, "gravity", "Gravity"
 
 names(combinedNewData)
 ```
-
 explaination goes here...
 
 
@@ -105,6 +102,5 @@ finalData <- combinedNewData %>%
 
 write.table(finalData, "Final_Data.txt", row.name=FALSE)
 ```
-
 explaination goes here...
 
