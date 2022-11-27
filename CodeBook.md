@@ -34,8 +34,19 @@ colnames(allActivities) <- "Activity"
 colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 ```
-explaination goes here...
-This is a `variable`
+`activityLabels`, `feature`, `subjectTrain`, `featuresX_Train`, `activityY_Train`, `subjectTest`, `featuresX_Test`, `activityY_Test` are all used for loading data
+from input files.
+
+`allSubjects`, `allFeatures`, and `allActivities` are used for binding all the rows from the variables created from the input files.
+
+```r
+colnames(allFeatures) <- t(features[2])
+colnames(allActivities) <- "Activity"
+colnames(allSubjects) <- "Subject"
+```
+This will changed all the column names to the respectful values.
+
+`allData` will combined all the columns from `allSubjects`, `allFeatures`, and `allActivities`
 
 
 ## Step 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
