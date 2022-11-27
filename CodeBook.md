@@ -34,6 +34,7 @@ colnames(allActivities) <- "Activity"
 colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 ```
+### Explaination
 `activityLabels`, `feature`, `subjectTrain`, `featuresX_Train`, `activityY_Train`, `subjectTest`, `featuresX_Test`, `activityY_Test` are all used for loading data
 from input files.
 
