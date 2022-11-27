@@ -81,8 +81,11 @@ for (i in 1:dim(newData)[1]){
 }
 combinedNewData <- cbind(newData, allSubjects)
 ```
-explaination goes here...
+### Explaination
 
+Looping through every row in the column `Activity` to change all the names to the respectful value from the second column in the `activityLabels` file.
+
+`combinedData` is the new created data set with the changed names in the `Activity` column.
 
 ## Step 4 - Appropriately labels the data set with descriptive variable names.
 
