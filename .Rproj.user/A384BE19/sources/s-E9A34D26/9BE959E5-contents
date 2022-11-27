@@ -34,8 +34,20 @@ colnames(allActivities) <- "Activity"
 colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 ```
+### Explaination
+`activityLabels`, `feature`, `subjectTrain`, `featuresX_Train`, `activityY_Train`, `subjectTest`, `featuresX_Test`, `activityY_Test` are all used for loading data
+from input files.
 
-{{explaination goes here...}}
+`allSubjects`, `allFeatures`, and `allActivities` are used for binding all the rows from the variables created from the input files.
+
+```r
+colnames(allFeatures) <- t(features[2])
+colnames(allActivities) <- "Activity"
+colnames(allSubjects) <- "Subject"
+```
+This will changed all the column names to the respectful values.
+
+`allData` will combined all the columns from `allSubjects`, `allFeatures`, and `allActivities`
 
 
 ## Step 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
@@ -49,9 +61,13 @@ newData <- allData[1:dim(allData), requiredColumns]
 
 dim(newData)
 ```
+### Explaination
 
-explaination goes here...
+`measurementData` is used to search for the means and standard deviation columns
 
+`requiredColumns` combines measurement data with 2 other columns
+
+`newData` is the newly created table
 
 ## Step 3 - Uses descriptive activity names to name the activities in the data set
 
@@ -65,9 +81,11 @@ for (i in 1:dim(newData)[1]){
 }
 combinedNewData <- cbind(newData, allSubjects)
 ```
+### Explaination
 
-explaination goes here...
+Looping through every row in the column `Activity` to change all the names to the respectful value from the second column in the `activityLabels` file.
 
+`combinedData` is the new created data set with the changed names in the `Activity` column.
 
 ## Step 4 - Appropriately labels the data set with descriptive variable names.
 
@@ -92,8 +110,16 @@ names(combinedNewData) <- subsitituteLabel(combinedNewData, "gravity", "Gravity"
 
 names(combinedNewData)
 ```
+### Explaination
 
-explaination goes here...
+```r
+subsitituteLabel <- function(data, regex, newName, ignoreCaseBoolean){
+  names(data)<-gsub(regex, newName, names(data), ignore.case = ignoreCaseBoolean)
+  return(names(data))
+}
+```
+`subsitituteLabel` is a function that is used to find regular expression patterns and change the column names to a more fulfilling naming convention. The
+function also returns the newly created data set with the naming convention changed.
 
 
 ## Step 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
@@ -105,6 +131,12 @@ finalData <- combinedNewData %>%
 
 write.table(finalData, "Final_Data.txt", row.name=FALSE)
 ```
+### Explaination
 
-explaination goes here...
+`finalData` is the final data set created from calculating the mean in the `Subject` and `Activity` column.
+
+```r 
+write.table(finalData, "Final_Data.txt", row.name=FALSE)
+``` 
+The above code will write the `finalData` to an output file in the main directory.
 
