@@ -1,8 +1,15 @@
 # Getting-and-Cleaning-Data
 
-Step #1 - Merges the training and the test sets to create one data set.
-
+## Libraries used
+```r
+library("data.table")
+library("dplyr")
+library("tidyverse")
 ```
+
+## Step #1 - Merges the training and the test sets to create one data set.
+
+```r
 activityLabels <- read.table("Data/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/activity_labels.txt", header = FALSE)
 features <- read.table("Data/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/features.txt")
 
@@ -26,4 +33,63 @@ colnames(allFeatures) <- t(features[2])
 colnames(allActivities) <- "Activity"
 colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
+```
+
+## Step 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
+
+```r
+measurementData <- grep(".*Mean.*|.*Std.*", names(allData), ignore.case=TRUE)
+requiredColumns <- c(measurementData, 562, 563)
+dim(allData)
+
+newData <- allData[1:dim(allData), requiredColumns]
+
+dim(newData)
+```
+
+## Step 3 - Uses descriptive activity names to name the activities in the data set
+
+```r
+for (i in 1:dim(newData)[1]){
+  for(k in 1:6){
+    if(newData$Activity[i] == k){
+      newData$Activity[i] <- activityLabels[k,2]
+    }
+  }
+}
+combinedNewData <- cbind(newData, allSubjects)
+```
+
+## Step 4 - Appropriately labels the data set with descriptive variable names.
+
+```r
+subsitituteLabel <- function(data, regex, newName, ignoreCaseBoolean){
+  names(data)<-gsub(regex, newName, names(data), ignore.case = ignoreCaseBoolean)
+  return(names(data))
+}
+
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "Acc", "Accelerometer", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "Gyro", "Gyroscope", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "BodyBody", "Body", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "Mag", "Magnitude", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "^t", "Time", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "^f", "Frequency", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "tBody", "TimeBody", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "-mean()", "Mean", TRUE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "-std()", "STD", TRUE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "-freq()", "Frequency", TRUE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "angle", "Angle", FALSE)
+names(combinedNewData) <- subsitituteLabel(combinedNewData, "gravity", "Gravity", FALSE)
+
+names(combinedNewData)
+```
+
+## Step 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+```r
+finalData <- combinedNewData %>%
+  group_by(Subject, Activity) %>%
+  summarise_all(funs(mean))
+
+write.table(finalData, "Final_Data.txt", row.name=FALSE)
 ```
