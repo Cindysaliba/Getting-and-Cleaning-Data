@@ -110,7 +110,16 @@ names(combinedNewData) <- subsitituteLabel(combinedNewData, "gravity", "Gravity"
 
 names(combinedNewData)
 ```
-explaination goes here...
+### Explaination
+
+```r
+subsitituteLabel <- function(data, regex, newName, ignoreCaseBoolean){
+  names(data)<-gsub(regex, newName, names(data), ignore.case = ignoreCaseBoolean)
+  return(names(data))
+}
+```
+`subsitituteLabel` is a function that is used to find regular expression patterns and chnage the column names to a re fulfilling naming convention. The
+function also returns the newly created data set with the naming convention changed.
 
 
 ## Step 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
