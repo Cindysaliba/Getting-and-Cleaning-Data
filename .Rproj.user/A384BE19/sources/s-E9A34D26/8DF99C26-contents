@@ -30,6 +30,8 @@ colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 
 
+write.table(allData, "Tidy_Data.txt", row.name=FALSE)
+
 # Extracts only the measurements on the mean and standard deviation for each measurement.
 
 measurementData <- grep(".*Mean.*|.*Std.*", names(allData), ignore.case=TRUE)
@@ -81,3 +83,4 @@ finalData <- combinedNewData %>%
   summarise_all(funs(mean))
 
 write.table(finalData, "Final_Data.txt", row.name=FALSE)
+

@@ -3,7 +3,7 @@ library("dplyr")
 library("tidyverse")
 
 
-#Merges the training and the test sets to create one data set.
+# Merges the training and the test sets to create one data set.
 
 activityLabels <- read.table("Data/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/activity_labels.txt", header = FALSE)
 features <- read.table("Data/getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/features.txt")
@@ -30,7 +30,7 @@ colnames(allSubjects) <- "Subject"
 allData <- cbind(allSubjects, allFeatures, allActivities)
 
 
-#Extracts only the measurements on the mean and standard deviation for each measurement.
+# Extracts only the measurements on the mean and standard deviation for each measurement.
 
 measurementData <- grep(".*Mean.*|.*Std.*", names(allData), ignore.case=TRUE)
 requiredColumns <- c(measurementData, 562, 563)
@@ -40,7 +40,7 @@ newData <- allData[1:dim(allData), requiredColumns]
 dim(newData)
 
 
-#Uses descriptive activity names to name the activities in the data set
+# Uses descriptive activity names to name the activities in the data set
 
 for (i in 1:dim(newData)[1]){
   for(k in 1:6){
@@ -51,7 +51,7 @@ for (i in 1:dim(newData)[1]){
 }
 combinedNewData <- cbind(newData, allSubjects)
 
-#Appropriately labels the data set with descriptive variable names.
+# Appropriately labels the data set with descriptive variable names.
 
 subsitituteLabel <- function(data, regex, newName, ignoreCaseBoolean){
   names(data)<-gsub(regex, newName, names(data), ignore.case = ignoreCaseBoolean)
@@ -74,5 +74,10 @@ names(combinedNewData) <- subsitituteLabel(combinedNewData, "gravity", "Gravity"
 names(combinedNewData)
 
 
-#From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+# From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+finalData <- combinedNewData %>%
+  group_by(Subject, Activity) %>%
+  summarise_all(funs(mean))
+
+write.table(finalData, "Final_Data.txt", row.name=FALSE)
