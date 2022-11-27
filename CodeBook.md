@@ -61,8 +61,11 @@ newData <- allData[1:dim(allData), requiredColumns]
 
 dim(newData)
 ```
-explaination goes here...
+### Explaination
 
+`measurementData` is used to search for the means and standard deviation columns
+`requiredColumns` combines measurement data with 2 other columns
+`newData` is the newly created table
 
 ## Step 3 - Uses descriptive activity names to name the activities in the data set
 
