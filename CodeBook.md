@@ -118,7 +118,7 @@ subsitituteLabel <- function(data, regex, newName, ignoreCaseBoolean){
   return(names(data))
 }
 ```
-`subsitituteLabel` is a function that is used to find regular expression patterns and chnage the column names to a re fulfilling naming convention. The
+`subsitituteLabel` is a function that is used to find regular expression patterns and change the column names to a more fulfilling naming convention. The
 function also returns the newly created data set with the naming convention changed.
 
 
@@ -131,5 +131,9 @@ finalData <- combinedNewData %>%
 
 write.table(finalData, "Final_Data.txt", row.name=FALSE)
 ```
-explaination goes here...
+### Explaination
+
+`finalData` is the final data set created from calculating the mean in the `Subject' and `Activity` column.
+
+Finally, ```r write.table(finalData, "Final_Data.txt", row.name=FALSE) ``` will write the `finalData` to an output file in the main directory.
 
